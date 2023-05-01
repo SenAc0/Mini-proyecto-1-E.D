@@ -1,7 +1,8 @@
 #include "ListArray.h"
+using namespace std;
 int main(){
     cout << "Este es el Main" <<endl;
-    ListArray list = new ListArray(6);
+    ListArray list(6);
 
     return 0;
 }

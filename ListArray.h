@@ -1,9 +1,7 @@
 #include <iostream>
 #include "ListArr.h"
 //Clase ListArray
-class ListArray: public ListArr{
-private:
-    struct NodeA {
+struct NodeA {
         int* data;
         int b;
         int capacity;
@@ -14,33 +12,36 @@ private:
             next = nullptr;
             capacity = 0;
         }
-    };
-    struct NodeR {
+};
+struct NodeR {
     int actual;
     int size;
-    Node* left;
-    Node* right;
-    ListArr::NodeA* list_node; // puntero al nodo de ListArr correspondiente
+    NodeR *left;
+    NodeR *right;
     
     NodeR() {
         this->size = 0;
         this->actual = 0;
         this->left = nullptr;
         this->right = nullptr;
-        this->list_node = nullptr;
     }
 };
+class ListArray: public ListArr{
+private:
     NodeA* Head;
     NodeR* root;
-    int cNodos;
-    int size;
+    int b;
+    int size1;
 
 public:
+    ListArray(int b);
+    ~ListArray();
     int size();
     void insert_left(int v);
     void insert_right(int v);
     void insert(int v, int i);
-    void print()=;
+    void print();
     bool find(int v);
+    NodeR * construirArbol();
     //NodeR construirArbol(ListArr input,NodeR* root);
 };

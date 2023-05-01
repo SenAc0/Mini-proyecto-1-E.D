@@ -1,62 +1,60 @@
-#include "ListArr.h"
+#include "ListArray.h"
 #include <queue>
 //Metodos
-ListArr::ListArr(int b){
+ListArray::ListArray(int b){
     this->b = b;
     Head = new NodeA(b);
 
 }
-ListArr::~ListArr(){
-    Node* current = Head;
+ListArray::~ListArray(){
+    NodeA *current = Head;
     while (current != nullptr) {
-        Node* next = current->next;
+        NodeA *next = current->next;
         delete current;
         current = next;
     }
     Head = nullptr;
 }
-int ListArr::size(){
-    return size;
+int ListArray::size(){
+    return size1;
 
 }
-void ListArr::insert_left(int v){
-    /*if(Head->capacity==Head->b){
-        NodeA* n = new NodeA(Head->b);
-        n->data[0] = int v
-        Head->next = Head;
-        Head = n;
-    }*/
+void ListArray::insert_left(int v){
+
     
 }
-void ListArr::insert_right(int v){
+void ListArray::insert_right(int v){
     if(Head->capacity==Head->b){
         NodeA* n = new NodeA(Head->b);
         n->next = Head;
-        n->data[capacity] = v;
+        n->data[0] = v;
+        n->capacity=0;
         n->capacity = n->capacity + 1;
         Head = n;
-        size = size + 1;
+        size1 = size1 + 1;
     }else{
-        Head->data[capacity] = v;
+        Head->data[Head->capacity] = v;
         Head->capacity = Head->capacity + 1;
-        size = size + 1;
+        size1 = size1 + 1;
     }
 }
-void ListArr::insert(int v, int i){
+void ListArray::insert(int v, int i){
 
 }
-void ListArr::print(){
+void ListArray::print(){
+    while(Head->next!=nullptr){
+        for (int i = 0; i < Head->b; i++)
+        {
+            cout << Head->data[i] << endl;
+        }
+        Head->next;
+    }
 
 }
-bool ListArr::find(int v){
-
+bool ListArray::find(int v){
+    return false;
 }
-/*
-Node ListArr::construirArbol(ListArr lista, Node* root){
-    int n = lista.size();
-    queue<Node*> q;
-    root = new Node();
-    q.push(root;)
-    //a
-
-}*/
+NodeR * ListArray::construirArbol(){
+    vector<NodeR *> nodosArbol;
+    return nullptr;
+}
