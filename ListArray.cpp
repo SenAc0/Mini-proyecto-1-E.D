@@ -42,16 +42,25 @@ void ListArray::insert(int v, int i){
 
 }
 void ListArray::print(){
-    while(Head->next!=nullptr){
-        for (int i = 0; i < Head->b; i++)
-        {
-            cout << Head->data[i] << endl;
+    cout <<"Los elementos del ListArray son: "<< endl;
+    while (Head != NULL) {
+        for(int i=0;i<size1;i++){
+            cout << Head->data[i] <<endl;
         }
-        Head->next;
+        Head = Head->next;
     }
-
+    cout << endl;
 }
+
 bool ListArray::find(int v){
+    while (Head != NULL) {
+        for (int i = 0; i < Head->capacity; i++) {  //si capacity no se  referia al numero de datos en el arreglo, cambiar por b
+            if (Head->data[i] == v) {
+                return true;
+            }
+        }
+        Head = Head->next;
+    }
     return false;
 }
 
