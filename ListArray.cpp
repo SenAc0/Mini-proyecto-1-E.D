@@ -54,7 +54,17 @@ void ListArray::print(){
 bool ListArray::find(int v){
     return false;
 }
-NodeR * ListArray::construirArbol(){
+
+NodeR* ListArray::construirArbolCompleto(int altura) {
+    if (altura == 0) {
+        return nullptr;
+    }
+    NodeR* nuevoNodo = new NodeR();
+    nuevoNodo->left = construirArbolCompleto(altura - 1);
+    nuevoNodo->right = construirArbolCompleto(altura - 1);
+    return nuevoNodo;
+}
+/*NodeR * ListArray::construirArbol(){
     vector<NodeR *> nodosArbol;
     return nullptr;
-}
+}*/

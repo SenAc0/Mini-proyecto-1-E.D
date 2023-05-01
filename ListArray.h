@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ListArr.h"
-//Clase ListArray
+#include <queue>
+
 struct NodeA {
         int* data;
         int b;
@@ -42,6 +43,6 @@ public:
     void insert(int v, int i);
     void print();
     bool find(int v);
-    NodeR * construirArbol();
-    //NodeR construirArbol(ListArr input,NodeR* root);
+    NodeR* construirArbolCompleto(int altura);
+    //NodeR * construirArbol();
 };

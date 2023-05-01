@@ -1,8 +1,10 @@
 #include "ListArray.h"
+
 using namespace std;
+
 int main(){
-    cout << "Este es el Main" <<endl;
-    ListArray list(6);
+    ListArray lista(6);
+    lista.construirArbolCompleto(3);
 
     return 0;
 }
