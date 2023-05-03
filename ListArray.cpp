@@ -19,8 +19,42 @@ int ListArray::size(){
     return size1;
 
 }
-void ListArray::insert_left(int v){
+/*pseudocodigo
+considerando b= tamaño array
+             capacity = numero de elementos en el array
+si el arreglo no esta lleno{
+    mover todos los elementos del array 1 hacia la derecha
+    insertar v en el indice 0
+    aumentar numero de elementos en el array en 1
+    }
+en otro caso{
+    crear nuevo nodo
+    insertar nodo a la linked list despues de Head
+    numero de elementos en el nodo = 1
+    elemento en el indice 0 del nuevo nodo = ultimo elemento del arreglo del nodo Head
+    repetir caso anterior (excepto por sumar 1 al numero de elementos en Head pues sigue lleno)
 
+}
+*/
+void ListArray::insert_left(int v){
+        if (Head->capacity < Head->b) {
+            for (int i = Head->capacity; i > 0; i--) {
+                Head->data[i] = Head->data[i - 1];
+            }
+            Head->data[0] = v;
+            Head->capacity++;
+        }
+        else {
+            NodeA* node = new NodeA(Head->b);
+            node->next = Head->next;
+            Head->next = node;
+            node->capacity = 1;
+            node->data[0] = Head->data[Head->b - 1];
+            for (int i = Head->b-1; i > 0; i--) {
+                Head->data[i] = Head->data[i - 1];
+            }
+            Head->data[0] = v;
+        }
     
 }
 void ListArray::insert_right(int v){
