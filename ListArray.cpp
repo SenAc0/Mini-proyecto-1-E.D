@@ -1,10 +1,10 @@
 #include "ListArray.h"
 #include <queue>
 //Metodos
-ListArray::ListArray(int b){
-    this->b = b;
-    Head = new NodeA(b);
-
+ListArray::ListArray(int tamañoArreglos,int tamañoLinkedList){
+    ConstruirLL( tamañoLinkedList, tamañoArreglos);
+    ConstruirHojas();
+    this->root = buildBinaryTree(this->hojas, 0, numeroDeHojas -1);
 }
 ListArray::~ListArray(){
     NodeA *current = Head;
@@ -102,12 +102,67 @@ NodeR* ListArray::construirArbolCompleto(int altura) {
     if (altura == 0) {
         return nullptr;
     }
-    NodeR* nuevoNodo = new NodeR();
-    nuevoNodo->left = construirArbolCompleto(altura - 1);
-    nuevoNodo->right = construirArbolCompleto(altura - 1);
-    return nuevoNodo;
+    NodeR* nuevoNode = new NodeR();
+    nuevoNode->left = construirArbolCompleto(altura - 1);
+    nuevoNode->right = construirArbolCompleto(altura - 1);
+    return nuevoNode;
 }
-/*NodeR * ListArray::construirArbol(){
-    vector<NodeR *> nodosArbol;
-    return nullptr;
-}*/
+
+void ListArray::ConstruirLL(int size, int tamNodeA){
+    this->Head = new NodeA(tamNodeA);
+    NodeA* actual = this->Head;
+    for (int i = 1; i < size; i++) {
+        actual->next = new NodeA(tamNodeA);
+        actual = actual->next;
+    }
+}
+
+void ListArray::ConstruirHojas(){
+    int i=0;
+    NodeR* cabezaR = new NodeR();
+    NodeR* actualR = cabezaR;
+    NodeA* actual = this->Head;
+    while (actual != nullptr && actual->next != nullptr) {
+        NodeR* Hoja = new NodeR();
+        Hoja->izquierda = actual;
+        Hoja->derecha = actual->next;
+        Hoja->size = actual->capacity + actual->next->capacity;
+        Hoja->b = actual->b + actual->next->b;
+        this->hojas[i]=Hoja;
+        i++;
+        actual = actual->next->next;
+        
+    }
+    if (actual != nullptr && actual->next == nullptr) {
+        NodeR* Hoja = new NodeR();
+        Hoja->izquierda = actual;
+        Hoja->size = actual->capacity;
+        Hoja->b = actual->b;
+        this->hojas[i]=Hoja;
+        i++;
+    }
+    this->numeroDeHojas = i;
+}
+
+NodeR* ListArray::buildBinaryTree(NodeR** hojas, int inicio, int fin) {
+    
+    if (inicio > fin) {
+        return nullptr;
+    }
+    if (inicio == fin) {
+        return hojas[inicio];
+    }
+    int mitad = (inicio + fin) / 2;
+    NodeR* raiz = new NodeR;
+    raiz->left = buildBinaryTree(hojas, inicio, mitad);
+    raiz->right = buildBinaryTree(hojas, mitad + 1, fin);
+    return raiz;
+}
+
+void ListArray::preOrderTraversal(NodeR* raiz) {
+  if (raiz != nullptr) {
+    cout << raiz->b << " ";
+    preOrderTraversal(raiz->left);
+    preOrderTraversal(raiz->right);
+  }
+}
