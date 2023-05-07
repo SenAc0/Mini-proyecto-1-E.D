@@ -3,8 +3,7 @@
 using namespace std;
 
 int main(){
-    ListArray lista(6,7);
-    lista.preOrderTraversal(lista.root);
+    ListArray lista(6,11);
 
     return 0;
 }

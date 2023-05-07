@@ -1,10 +1,10 @@
 #include "ListArray.h"
-#include <queue>
-//Metodos
+#include <vector>
+
 ListArray::ListArray(int tamañoArreglos,int tamañoLinkedList){
-    ConstruirLL( tamañoLinkedList, tamañoArreglos);
+    ConstruirLL(tamañoLinkedList, tamañoArreglos);
     ConstruirHojas();
-    this->root = buildBinaryTree(this->hojas, 0, numeroDeHojas -1);
+    this->root=ConstruirArbol(3,this->hojas, numeroDeHojas);
 }
 ListArray::~ListArray(){
     NodeA *current = Head;
@@ -98,15 +98,6 @@ bool ListArray::find(int v){
     return false;
 }
 
-NodeR* ListArray::construirArbolCompleto(int altura) {
-    if (altura == 0) {
-        return nullptr;
-    }
-    NodeR* nuevoNode = new NodeR();
-    nuevoNode->left = construirArbolCompleto(altura - 1);
-    nuevoNode->right = construirArbolCompleto(altura - 1);
-    return nuevoNode;
-}
 
 void ListArray::ConstruirLL(int size, int tamNodeA){
     this->Head = new NodeA(tamNodeA);
@@ -142,27 +133,45 @@ void ListArray::ConstruirHojas(){
         i++;
     }
     this->numeroDeHojas = i;
+    for(int j=0;j<i;j++){
+        this->colaDeRamas.push(this->hojas[j]);
+    }
 }
 
-NodeR* ListArray::buildBinaryTree(NodeR** hojas, int inicio, int fin) {
+NodeR* ListArray::ConstruirArbol(int height, NodeR** leaves, int size) {
+    vector<NodeR*> padres(size / 2 + size % 2, nullptr);
+    for (int i = 0; i < size; i += 2) {
+        NodeR* padre = new NodeR;
+        padre->left = leaves[i];
+        padre->right = (i + 1 < size) ? leaves[i + 1] : nullptr;
+        if(padre->right == nullptr){
+            padre->b = padre->left->b;
+            padre->size = padre->left->size;
+        }else{
+            padre->b = padre->left->b + padre->right->b;
+            padre->size = padre->left->size + padre->right->size;
+        }
+        padres[i / 2] = padre;
+    }
     
-    if (inicio > fin) {
-        return nullptr;
+    while (padres.size() > 1) {
+        int n = padres.size();
+        vector<NodeR*> newPadres(n / 2 + n % 2, nullptr);
+        for (int i = 0; i < n; i += 2) {
+            NodeR* padre = new NodeR;
+            padre->left = padres[i];
+            padre->right = (i + 1 < n) ? padres[i + 1] : nullptr;
+            if(padre->right == nullptr){
+                padre->b = padre->left->b;
+                padre->size = padre->left->size;
+            }else{
+                padre->b = padre->left->b + padre->right->b;
+                padre->size = padre->left->size + padre->right->size;
+            }
+            newPadres[i / 2] = padre;
+        }
+        padres = move(newPadres);
     }
-    if (inicio == fin) {
-        return hojas[inicio];
-    }
-    int mitad = (inicio + fin) / 2;
-    NodeR* raiz = new NodeR;
-    raiz->left = buildBinaryTree(hojas, inicio, mitad);
-    raiz->right = buildBinaryTree(hojas, mitad + 1, fin);
-    return raiz;
-}
-
-void ListArray::preOrderTraversal(NodeR* raiz) {
-  if (raiz != nullptr) {
-    cout << raiz->b << " ";
-    preOrderTraversal(raiz->left);
-    preOrderTraversal(raiz->right);
-  }
+    
+    return padres[0];
 }

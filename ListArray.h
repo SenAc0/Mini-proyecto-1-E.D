@@ -10,9 +10,9 @@ struct NodeA {
         NodeA* next;
         NodeA(int b) {
             this->b = b;
-            data = new int[b];
-            next = nullptr;
-            capacity = 0;
+            this->data = new int[b];
+            this->next = nullptr;
+            this->capacity = 0;
         }
 };
 struct NodeR {
@@ -27,7 +27,7 @@ struct NodeR {
     NodeR() {
         this->size = 0;
         this->actual = 0;
-        this->b=2;
+        this->b=0;
         this->izquierda = nullptr;
         this->derecha = nullptr;
         this->left = nullptr;
@@ -37,13 +37,15 @@ struct NodeR {
 class ListArray: public ListArr{
 private:
     NodeA* Head;
+    NodeR* root;
     int b;
     int size1;
     int numeroDeHojas;
     NodeR** hojas = new NodeR*[int(ceil(size1/2))];
+    queue<NodeR*> colaDeRamas;
 
 public:
-    NodeR* root;
+    
     ListArray(int tamañoArreglos,int tamañoLinkedList);
     ~ListArray();
     int size();
@@ -52,10 +54,8 @@ public:
     void insert(int v, int i);
     void print();
     bool find(int v);
-    NodeR* construirArbolCompleto(int altura);
     void ConstruirLL(int size,int tamNodeA);
     void ConstruirHojas();
-    NodeR* buildBinaryTree(NodeR** hojas, int inicio, int fin);
-    void preOrderTraversal(NodeR* raiz);
+    NodeR* ConstruirArbol(int height, NodeR** leaves, int size);
     //NodeR * construirArbol();
 };
