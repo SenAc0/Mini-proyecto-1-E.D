@@ -37,7 +37,6 @@ struct NodeR {
 class ListArray: public ListArr{
 private:
     NodeA* Head;
-    NodeR* root;
     int b;
     int size1;
     int numeroDeHojas;
@@ -45,7 +44,7 @@ private:
     queue<NodeR*> colaDeRamas;
 
 public:
-    
+    NodeR* root;
     ListArray(int tamañoArreglos,int tamañoLinkedList);
     ~ListArray();
     int size();
@@ -56,6 +55,8 @@ public:
     bool find(int v);
     void ConstruirLL(int size,int tamNodeA);
     void ConstruirHojas();
+    void preOrderTraversal(NodeR* raiz);
     NodeR* ConstruirArbol(int height, NodeR** leaves, int size);
+    int CalcularAltura(int actual);
     //NodeR * construirArbol();
 };

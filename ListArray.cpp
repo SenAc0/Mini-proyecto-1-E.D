@@ -4,7 +4,7 @@
 ListArray::ListArray(int tamañoArreglos,int tamañoLinkedList){
     ConstruirLL(tamañoLinkedList, tamañoArreglos);
     ConstruirHojas();
-    this->root=ConstruirArbol(3,this->hojas, numeroDeHojas);
+    this->root=ConstruirArbol(CalcularAltura(numeroDeHojas),this->hojas, numeroDeHojas);
 }
 ListArray::~ListArray(){
     NodeA *current = Head;
@@ -174,4 +174,29 @@ NodeR* ListArray::ConstruirArbol(int height, NodeR** leaves, int size) {
     }
     
     return padres[0];
+}
+
+void ListArray::preOrderTraversal(NodeR* raiz) {
+  if (raiz != nullptr) {
+    cout << raiz->b << " ";
+    preOrderTraversal(raiz->left);
+    preOrderTraversal(raiz->right);
+  }
+}
+
+int ListArray::CalcularAltura(int actual){
+   if (actual <= 2) {
+        return 1;
+    }
+    int count = 0;
+    while (actual > 1) {
+        if (actual % 2 == 0) {
+            actual /= 2;
+            count++;
+        } else {
+            actual = ceil((double)actual / 2.0);
+            count++;
+        }
+    }
+    return count;
 }
