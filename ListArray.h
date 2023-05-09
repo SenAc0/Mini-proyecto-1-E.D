@@ -37,14 +37,16 @@ struct NodeR {
 class ListArray: public ListArr{
 private:
     NodeA* Head;
+    NodeA* tail;
     int b;
     int size1;
     int numeroDeHojas;
     NodeR** hojas = new NodeR*[int(ceil(size1/2))];
-    queue<NodeR*> colaDeRamas;
+    NodeR* root;
+    
 
 public:
-    NodeR* root;
+    
     ListArray(int tamañoArreglos,int tamañoLinkedList);
     ~ListArray();
     int size();
@@ -56,7 +58,6 @@ public:
     void ConstruirLL(int size,int tamNodeA);
     void ConstruirHojas();
     void preOrderTraversal(NodeR* raiz);
-    NodeR* ConstruirArbol(int height, NodeR** leaves, int size);
+    NodeR* ConstruirArbol(int height, NodeR** hojas, int size);
     int CalcularAltura(int actual);
-    //NodeR * construirArbol();
 };
